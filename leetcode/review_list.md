@@ -5,3 +5,7 @@
 32 parenthesis
 
 51 N queen, need to improve, slow now
+
+383 : store count of occurrence instead of three iteration
+
+1095: retry
