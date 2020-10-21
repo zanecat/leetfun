@@ -15,3 +15,5 @@
 137: !!! crazy bitmap
 
 109: use fast-slow pointers to find mid, use in-order to build tree
+
+96: dp !!! and also the formula
