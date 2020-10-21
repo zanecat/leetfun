@@ -3,7 +3,7 @@ We only need to look at all positive numbers in this issue
 and the first missing positive won't be larger than the length of nums[]
  */
 
-package q.q41;
+package q.q041;
 
 public class FirstMissingPositive {
   public static void main(String[] args) {

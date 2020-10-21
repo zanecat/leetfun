@@ -40,7 +40,7 @@
 // 👍 4617 👎 577
 
 
-package q.q98
+package q.q098
     ;
 
 import dataStructure.TreeNode;

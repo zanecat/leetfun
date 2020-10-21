@@ -1,16 +1,16 @@
-46: permutation
+46: permutation backtrack
 
 42 trapping water
 
 32 parenthesis
 
-51 N queen, need to improve, slow now
+51 N queen, need to improve
 
 383 : store count of occurrence instead of three iteration
 
 1095: retry
 
-99: Morris 中序遍历
+99: Morris traverse? 
 
 137: !!! crazy bitmap
 

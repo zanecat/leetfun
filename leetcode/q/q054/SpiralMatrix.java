@@ -28,7 +28,7 @@
 // 👍 511 👎 0
 
   
-package q.q54;
+package q.q054;
 
 import java.util.LinkedList;
 import java.util.List;

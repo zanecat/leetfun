@@ -31,7 +31,7 @@
 // 👍 1306 👎 0
 
   
-package q.q14;
+package q.q014;
   
 public class LongestCommonPrefix{
   public static void main(String[] args) {

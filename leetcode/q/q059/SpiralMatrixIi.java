@@ -16,7 +16,7 @@
 // 👍 246 👎 0
 
 
-package q.q59;
+package q.q059;
 
 public class SpiralMatrixIi {
   public static void main(String[] args) {

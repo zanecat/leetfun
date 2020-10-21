@@ -48,7 +48,7 @@
 // 👍 1666 👎 0
 
 
-package q.q26;
+package q.q026;
 
 public class RemoveDuplicatesFromSortedArray {
   public static void main(String[] args) {

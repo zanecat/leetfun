@@ -26,7 +26,7 @@
 // 👍 3892 👎 138
 
 
-package q.q96;
+package q.q096;
 
 public class UniqueBinarySearchTrees {
     public static void main(String[] args) {
