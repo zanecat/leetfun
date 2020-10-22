@@ -2,6 +2,7 @@
 /.idea
 /.gradle
 /leetcode/editor
+<<<<<<< HEAD
 
 .gradle
 /build/
@@ -20,3 +21,6 @@ gradle-app.setting
 
 # Ignore Gradle build output directory
 build
+=======
+leetFun.iml
+>>>>>>> 6153fddf4b6fd7ad51ec54a85c230f5dfb9cd7d3

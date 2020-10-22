@@ -27,7 +27,7 @@
 // 👍 487 👎 0
 
   
-package q.q49;
+package q.q049;
 
 import java.util.ArrayList;
 import java.util.Arrays;

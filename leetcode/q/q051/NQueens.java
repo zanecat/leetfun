@@ -30,7 +30,7 @@
 // 👍 630 👎 0
 
 
-package q.q51;
+package q.q051;
 
 import java.util.ArrayList;
 import java.util.List;
