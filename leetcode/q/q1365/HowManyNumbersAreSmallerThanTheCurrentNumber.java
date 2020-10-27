@@ -50,8 +50,19 @@ import java.util.Arrays;
 public class HowManyNumbersAreSmallerThanTheCurrentNumber{
   public static void main(String[] args) {
     Solution solution = new HowManyNumbersAreSmallerThanTheCurrentNumber().new Solution();
-      int[] ints = solution.smallerNumbersThanCurrent(new int[]{8, 1, 2, 2, 3});
-      System.out.println();
+    Integer x = 1;
+    Integer u = 2;
+
+    swap(x, u);
+      System.out.println(x);
+      System.out.println(u);
+  }
+
+  static void swap(Integer x, Integer y){
+      x = 10;
+
+      System.out.println(x);
+      System.out.println(y);
   }
   //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
