@@ -19,3 +19,5 @@
 96: dp !!! and also the formula
 
 116/117 use O(1) space
+
+** do not use collection's size in for loop
