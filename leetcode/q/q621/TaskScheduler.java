@@ -64,6 +64,7 @@ import java.util.Hashtable;
 
 public class TaskScheduler {
     public static void main(String[] args) {
+        System.out.println();
         Solution solution = new TaskScheduler().new Solution();
     }
 
