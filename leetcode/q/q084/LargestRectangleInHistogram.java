@@ -24,7 +24,7 @@
 // 👍 4490 👎 93
 
 
-package q.q84;
+package q.q084;
 
 import java.util.Stack;
 
