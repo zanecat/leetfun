@@ -42,7 +42,7 @@ public class MultiplyStrings {
 
             for (int i = s1.length - 1; i >= 0; i--) {
                 for (int j = s2.length - 1; j >= 0; j--) {
-                    s[i + j + 1] += (int) (s1[i] - '0') * (int) (s2[j] - '0');
+                    s[i + j + 1] += (s1[i] - '0') * (s2[j] - '0');
                 }
             }
 
