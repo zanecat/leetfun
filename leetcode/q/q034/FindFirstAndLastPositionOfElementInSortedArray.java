@@ -38,58 +38,43 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
-        int [] nums;
-        int len;
-        int target;
         public int[] searchRange(int[] nums, int target) {
-            this.nums = nums;
-            len = nums.length;
-            this.target =  target;
+            int s = findS(nums, target), e = findE(nums, target);
 
-            if (len == 0) return new int[]{-1, -1};
-            int ll = 0, rr = len - 1;
-
-            int left = findL(0, len -1);
-            int ri = findR(0, len - 1);
-            return new int[]{left, ri};
+            return new int[]{s, e};
         }
 
-        int findL(int l, int r){
-            if (l > r) return -1;
-            int mi = l + (r - l)/2;
+        int findS(int[] nums, int target) {
+            int l = 0, r = nums.length - 1;
 
-            if (nums[mi] == target){
-                if (mi == 0){
-                    return 0;
-                } else if (nums[mi - 1] != target){
-                    return mi;
+            while (l <= r) {
+                int mid = l + (r - l) / 2;
+
+                if (nums[mid] >= target) {
+                    r = mid - 1;
+                } else {
+                    l = mid + 1;
                 }
             }
 
-            if (nums[mi] >= target){
-                return findL(l, mi - 1);
-            } else {
-                return findL(mi + 1, r);
-            }
+            if (l != nums.length && nums[l] == target) return l;
+            return -1;
         }
 
-        int findR(int l, int r){
-            if (l > r) return -1;
-            int mi = l + (r - l)/2;
+        int findE(int[] nums, int target) {
+            int l = 0, r = nums.length - 1;
 
-            if (nums[mi] == target){
-                if (mi == len - 1){
-                    return len - 1;
-                } else if (nums[mi + 1] != target){
-                    return mi;
+            while (l <= r) {
+                int mid = l + (r - l) / 2;
+                if (nums[mid] > target) {
+                    r = mid - 1;
+                } else {
+                    l = mid + 1;
                 }
             }
 
-            if (nums[mi] > target){
-                return findR(l, mi - 1);
-            } else {
-                return findR(mi + 1, r);
-            }
+            if (r != -1 && nums[r] == target) return r;
+            return -1;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
