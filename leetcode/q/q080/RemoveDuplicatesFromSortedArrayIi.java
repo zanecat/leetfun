@@ -1,6 +1,6 @@
-//Given an integer array nums sorted in non-decreasing order, remove the duplica
-//tes in-place such that each unique element appears only once. The relative order
-// of the elements should be kept the same. 
+//Given an integer array nums sorted in non-decreasing order, remove some duplic
+//ates in-place such that each unique element appears at most twice. The relative 
+//order of the elements should be kept the same. 
 //
 // Since it is impossible to change the length of the array in some languages, y
 //ou must instead have the result be placed in the first part of the array nums. M
@@ -35,10 +35,10 @@
 // Example 1: 
 //
 // 
-//Input: nums = [1,1,2]
-//Output: 2, nums = [1,2,_]
-//Explanation: Your function should return k = 2, with the first two elements of
-// nums being 1 and 2 respectively.
+//Input: nums = [1,1,1,2,2,3]
+//Output: 5, nums = [1,1,2,2,3,_]
+//Explanation: Your function should return k = 5, with the first five elements o
+//f nums being 1, 1, 2, 2 and 3 respectively.
 //It does not matter what you leave beyond the returned k (hence they are unders
 //cores).
 // 
@@ -46,10 +46,10 @@
 // Example 2: 
 //
 // 
-//Input: nums = [0,0,1,1,1,2,2,3,3,4]
-//Output: 5, nums = [0,1,2,3,4,_,_,_,_,_]
-//Explanation: Your function should return k = 5, with the first five elements o
-//f nums being 0, 1, 2, 3, and 4 respectively.
+//Input: nums = [0,0,1,1,1,1,2,3,3]
+//Output: 7, nums = [0,0,1,1,2,3,3,_,_]
+//Explanation: Your function should return k = 7, with the first seven elements 
+//of nums being 0, 0, 1, 1, 2, 3 and 3 respectively.
 //It does not matter what you leave beyond the returned k (hence they are unders
 //cores).
 // 
@@ -58,40 +58,41 @@
 // Constraints: 
 //
 // 
-// 0 <= nums.length <= 3 * 104 
-// -100 <= nums[i] <= 100 
+// 1 <= nums.length <= 3 * 104 
+// -104 <= nums[i] <= 104 
 // nums is sorted in non-decreasing order. 
 // 
 // Related Topics Array Two Pointers 
-// 👍 4230 👎 7408
+// 👍 2080 👎 825
 
 
-package q.q083;
+package q.q080;
 
-public class RemoveDuplicatesFromSortedArray {
+public class RemoveDuplicatesFromSortedArrayIi {
     public static void main(String[] args) {
-        Solution solution = new RemoveDuplicatesFromSortedArray().new Solution();
-        var a = solution.removeDuplicates(new int[]{0,0,1,1,1,2,2,3,3,4});
-        System.out.println(a);
+        Solution solution = new RemoveDuplicatesFromSortedArrayIi().new Solution();
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int removeDuplicates(int[] nums) {
+            if (nums.length <= 2) return nums.length;
 
-            int l = 1, r = 1;
-
-            while (r < nums.length){
-                if (nums[r] != nums[r - 1]){
-                    nums[l] = nums[r];
-                    r ++;
+            int l = 2;
+            for (int i = 2; i < nums.length; i ++) {
+                if (nums[i] != nums[l - 2]) {
+                    swap(nums, i, l);
                     l ++;
-                } else {
-                    r ++;
                 }
             }
 
             return l;
+        }
+
+        void swap(int[] nums, int l, int r){
+            int temp = nums[l];
+            nums[l] = nums[r];
+            nums[r] = temp;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)

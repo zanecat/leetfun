@@ -51,36 +51,32 @@
 package q.q026;
 
 public class RemoveDuplicatesFromSortedArray {
-  public static void main(String[] args) {
-    Solution solution = new RemoveDuplicatesFromSortedArray().new Solution();
-  }
-
-  //leetcode submit region begin(Prohibit modification and deletion)
-  class Solution {
-    public int removeDuplicates(int[] nums) {
-      if(nums.length<2) return nums.length;
-
-      int l = 1, r = 1, last = nums[0];
-
-      for (int i = 1; i < nums.length; i ++){
-        if(nums[i] == last){
-          r++;
-        } else {
-          last = nums[i];
-          if (r != l) {
-            nums[l] = nums[r];
-          }
-
-          l++;
-          r++;
-
-        }
-      }
-
-
-      return l;
+    public static void main(String[] args) {
+        Solution solution = new RemoveDuplicatesFromSortedArray().new Solution();
     }
-  }
+
+    //leetcode submit region begin(Prohibit modification and deletion)
+    class Solution {
+        public int removeDuplicates(int[] nums) {
+            if (nums.length < 2) return nums.length;
+
+            int l = 1;
+            for (int i = 1; i < nums.length; i ++){
+                if (nums[i] != nums[l - 1]){
+                    nums[l] = nums[i];
+                    l ++;
+                }
+            }
+
+            return l;
+        }
+
+        void swap(int[] nums, int l, int r){
+          int temp = nums[l];
+          nums[l] = nums[r];
+          nums[r] = temp;
+        }
+    }
 //leetcode submit region end(Prohibit modification and deletion)
 
 }
