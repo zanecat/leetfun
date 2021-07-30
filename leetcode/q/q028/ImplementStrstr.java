@@ -46,23 +46,23 @@ public class ImplementStrstr {
         public int strStr(String s, String p) {
             int m = s.length();
             int n = p.length();
-
+            if (n == 0) return 0;
             char [] ss = s.toCharArray();
             char [] pp = p.toCharArray();
 
-            if (n == 0) return 0;
-            int [] next = new int[n];
+            int [] dp = new int[n];
+
             for (int i = 0, j = 1; j < n; j ++){
-                while (i > 0 && pp[i] != pp[j]) i = next[i - 1];
+                while (i > 0 && pp[i] != pp[j]) i = dp[i - 1];
                 if (pp[i] == pp[j]) i ++;
-                next[j] = i;
+                dp[j] = i;
             }
 
-            for (int i = 0, j = 0; i < m; i ++){
-                while (j > 0 && ss[i] != pp[j]) j = next[j - 1];
-                if (ss[i] == pp[j]) j ++;
+            for (int i = 0, j = 0; j < m; j ++){
+                while (i > 0 && pp[i] != ss[j]) i = dp[i - 1];
+                if (pp[i] == ss[j]) i ++;
 
-                if (j == n) return i - n + 1;
+                if (i == n) return j - n + 1;
             }
 
             return -1;
