@@ -30,10 +30,7 @@ package q.q103;
 
 import dataStructure.TreeNode;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class BinaryTreeZigzagLevelOrderTraversal{
   public static void main(String[] args) {
@@ -51,26 +48,44 @@ public class BinaryTreeZigzagLevelOrderTraversal{
  */
 class Solution {
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-      if (root == null) return new ArrayList<>();
-      HashMap<Integer, List<Integer>> res = new HashMap<>();
-      helper(res, root, 0);
-      List<List<Integer>> finalRes = new ArrayList<>(res.values());
-      for(int i = 1; i < finalRes.size(); i+=2){
-        Collections.reverse(finalRes.get(i));
+      List<List<Integer>> res = new ArrayList<>();
+      if (root == null) return res;
+
+      LinkedList<TreeNode> st1 = new LinkedList<>();
+      LinkedList<TreeNode> st2 = new LinkedList<>();
+      Deque<Integer> row;
+
+      boolean use1 = false;
+      st1.push(root);
+
+      while (!st1.isEmpty() || !st2.isEmpty()){
+        row = new LinkedList<>();
+        if (use1){
+          while (!st2.isEmpty()){
+            TreeNode cur = st2.pop();
+            row.push(cur.val);
+            if (cur.left != null) st1.offer(cur.left);
+            if (cur.right != null) st1.offer(cur.right);
+          }
+          res.add(new LinkedList<>(row));
+          use1 = false;
+        } else {
+          while (!st1.isEmpty()){
+            TreeNode cur = st1.pop();
+            row.offer(cur.val);
+            if (cur.left != null) st2.offer(cur.left);
+            if (cur.right != null) st2.offer(cur.right);
+          }
+          res.add(new LinkedList<>(row));
+          use1 = true;
+        }
       }
-      return finalRes;
+
+      return res;
+
     }
 
-  void helper(HashMap<Integer, List<Integer>> res, TreeNode node, int lv) {
-    if (node != null) {
-      List<Integer> tmp = res.getOrDefault(lv, new ArrayList<>());
-      tmp.add(node.val);
-      res.put(lv, tmp);
 
-      helper(res, node.left, lv + 1);
-      helper(res, node.right, lv + 1);
-    }
-  }
 }
 //leetcode submit region end(Prohibit modification and deletion)
 
