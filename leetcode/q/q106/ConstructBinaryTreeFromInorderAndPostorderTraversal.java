@@ -26,6 +26,9 @@ package q.q106;
 
 import dataStructure.TreeNode;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ConstructBinaryTreeFromInorderAndPostorderTraversal {
     public static void main(String[] args) {
         Solution solution = new ConstructBinaryTreeFromInorderAndPostorderTraversal().new Solution();
@@ -49,35 +52,26 @@ public class ConstructBinaryTreeFromInorderAndPostorderTraversal {
      * }
      */
     class Solution {
-        int[] inorder;
-        int[] postorder;
+        Map<Integer, Integer> pos;
         public TreeNode buildTree(int[] inorder, int[] postorder) {
-            this.inorder = inorder;
-            this.postorder = postorder;
-
-            TreeNode node = helper(0, inorder.length, 0, inorder.length);
-            return node;
-        }
-
-        TreeNode helper(int in_start, int in_end, int p_start, int p_end){
-            if(in_end <= in_start || p_end <= p_start) return null;
-            int mid_val = postorder[p_end - 1];
-            TreeNode node = new TreeNode(mid_val);
-            int mid_in = findIndex(inorder, mid_val);
-
-            node.left = helper(in_start, mid_in, p_start, p_start + mid_in - in_start);
-            node.right = helper(mid_in + 1, in_end, p_start + mid_in - in_start, p_start + mid_in - in_start + in_end - mid_in - 1);
-            return node;
-        }
-
-        int findIndex(int [] nums, int tar){
-            for (int i = 0; i < nums.length; i ++){
-                if(nums[i] == tar){
-                    return i;
-                }
+            pos = new HashMap<>();
+            for (int i = 0; i < inorder.length; i ++){
+                pos.put(inorder[i], i);
             }
+            return getTree(inorder, 0, inorder.length - 1, postorder, 0, postorder.length - 1);
+        }
 
-            return -1;
+        TreeNode getTree(int [] inorder, int l1, int r1, int[] postorder, int l2, int r2){
+            if (l1 == r1) return new TreeNode(inorder[l1]);
+            if (l1 > r1) return null;
+            int val = postorder[r2];
+            int indexInInorder = pos.get(val);
+
+            TreeNode node = new TreeNode(val);
+
+            node.left = getTree(inorder, l1, indexInInorder - 1, postorder, l2, l2 + indexInInorder - l1 - 1);
+            node.right = getTree(inorder, indexInInorder + 1, r1, postorder, l2 + indexInInorder - l1 - 1 + 1, r2 - 1);
+            return node;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)

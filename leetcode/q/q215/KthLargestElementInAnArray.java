@@ -31,88 +31,46 @@ import java.util.Random;
 
 public class KthLargestElementInAnArray {
     public static void main(String[] args) {
-        Solution solution = new KthLargestElementInAnArray().new Solution();
-        var nums = new int[]{3,6,3,5,5,2,1,3};
-        solution.qss(nums, 0, nums.length - 1);
-        System.out.println(Arrays.toString(nums));
+
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         Random random = new Random();
         public int findKthLargest(int[] nums, int k) {
-            int l = 0, r = nums.length - 1;
-
-            int start = qs(nums, l, r);;
-
-            while (start != nums.length - k) {
-
-
-                if (start == nums.length - k) {
-                    return nums[start];
-                }
-                if (start > nums.length - k) {
-                    r = start - 1;
-                    start = qs(nums, l, r);
-                } else {
-                    l = start + 1;
-                    start = qs(nums, l, r);
-                }
-            }
-
-            return nums[start];
+            return qs(nums, 0, nums.length - 1, k - 1);
         }
 
-        void swap(int[] nums, int l, int r) {
-            int temp = nums[l];
-            nums[l] = nums[r];
-            nums[r] = temp;
-        }
-
-        int qs(int[] nums, int l, int r) {
-            randomize(nums, l, r);
-            int pivot = nums[l];
-            while (l < r) {
-                while (l < r && nums[r] >= pivot) {
-                    r--;
-                }
-                swap(nums, l, r);
-                while (l < r && nums[l] <= pivot) {
-                    l++;
-                }
-                swap(nums, l, r);
-
-            }
-
-            return l;
-        }
-
-        void randomize(int [] nums, int l, int r){
-            int i = random.nextInt(r - l + 1) + l ;
-            swap(nums, l, i);
-        }
-
-        void qss(int[] nums, int l, int r) {
-            if(l>=r){
-                return;
-            }
+        int qs(int [] nums, int l, int r, int k){
+            int rand = random.nextInt(r - l + 1) + l;
+            swap(nums, l, rand);
             int pivot = nums[l];
             int ll = l;
             int rr = r;
-            while (ll < rr) {
-                while (ll < rr && nums[rr] >= pivot) {
-                    rr--;
-                }
-                swap(nums, ll, rr);
-                while (ll < rr && nums[ll] <= pivot) {
-                    ll++;
-                }
-                swap(nums, ll, rr);
 
+            while (ll < rr){
+                while (ll < rr && nums[rr] <= pivot){
+                    rr --;
+                }
+                swap(nums, ll, rr);
+                while (ll < rr && nums[ll] >= pivot){
+                    ll ++;
+                }
+                swap(nums, ll, rr);
             }
 
-            qss(nums, l, ll -1);
-            qss(nums, ll + 1, r);
+            if (ll == k ) return nums[ll];
+            if (ll > k){
+                return qs(nums, l, ll - 1, k);
+            } else {
+                return qs(nums, ll + 1, r, k);
+            }
+        }
+
+        void swap(int [] nums, int i, int j){
+            int temp = nums[i];
+            nums[i] = nums[j];
+            nums[j] = temp;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
