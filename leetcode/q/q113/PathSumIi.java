@@ -34,6 +34,7 @@ package q.q113;
 import dataStructure.TreeNode;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class PathSumIi{
@@ -57,28 +58,31 @@ public class PathSumIi{
  * }
  */
 class Solution {
-    public List<List<Integer>> pathSum(TreeNode root, int sum) {
-        List<List<Integer>> ans = new ArrayList<>();
-        dfs(root, sum, ans, new ArrayList<>());
-        return ans;
+    List<List<Integer>> res = new LinkedList<>();
+    public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
+        my(new LinkedList<>(), targetSum, root);
+
+        return res;
     }
 
-    public void dfs(TreeNode root, int sum, List<List<Integer>> ans, List<Integer> visited) {
-        if (root == null) return;
-        visited.add(root.val);
-        if (root.left == null && root.right == null && root.val == sum) {
-            ans.add(new ArrayList<>(visited));
+    void my(List<Integer> list, int target, TreeNode node){
+        if (node == null) return;
+        list.add(node.val);
+        if (node.right == null && node.left == null && node.val == target){
+
+            res.add(new ArrayList<>(list));
+
+        } else {
+            if (node.left != null){
+                my(list, target - node.val, node.left);
+            }
+
+            if (node.right != null){
+                my(list, target - node.val, node.right);
+            }
         }
-        if (root.left != null) {
-            dfs(root.left, sum - root.val, ans, visited);
-            //remove root.left
-            visited.remove(visited.size() - 1);
-        }
-        if (root.right != null) {
-            dfs(root.right, sum - root.val, ans, visited);
-            //remove root.right
-            visited.remove(visited.size() - 1);
-        }
+
+        list.remove(list.size() - 1);
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

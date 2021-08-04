@@ -87,28 +87,35 @@ public class ConvertSortedListToBinarySearchTree {
    */
   class Solution {
     public TreeNode sortedListToBST(ListNode head) {
-      if(head == null) return null;
-      List<Integer> nums = new ArrayList<>();
 
-      ListNode curr = head;
+      if (head == null) return null;
 
-      while (curr != null){
-        nums.add(curr.val);
-        curr = curr.next;
-      }
+      if (head.next == null) return new TreeNode(head.val);
 
-      return help(nums, 0, nums.size());
+      ListNode mid = mid(head);
+
+      TreeNode node = new TreeNode(mid.val);
+      node.left = sortedListToBST(head);
+      node.right = sortedListToBST(mid.next);
+
+      return node;
     }
 
-    TreeNode help(List<Integer> nums, int start, int end){
-      if(start >= end) return null;
-      if(start == end - 1) return new TreeNode(nums.get(start));
+    ListNode mid(ListNode head){
+      if (head == null) return null;
 
-      int mid = (end + start)/2;
-      TreeNode res = new TreeNode(nums.get(mid));
-      res.left = help(nums, start, mid);
-      res.right = help(nums, mid + 1, end);
-      return res;
+      ListNode dum = new ListNode();
+      dum.next = head;
+      ListNode fast = dum, slow = dum;
+
+      while (fast.next != null && fast.next.next != null){
+        fast = fast.next.next;
+        slow = slow.next;
+      }
+
+      ListNode next = slow.next;
+      slow.next = null;
+      return next;
     }
   }
 //leetcode submit region end(Prohibit modification and deletion)

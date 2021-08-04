@@ -39,44 +39,53 @@
 // Related Topics Tree Depth-first Search 
 // 👍 2684 👎 184
 
-  
-  package q.q110;
+
+package q.q110;
 
 import dataStructure.TreeNode;
 
-public class BalancedBinaryTree{
-      public static void main(String[] args) {
-           Solution solution = new BalancedBinaryTree().new Solution();
-      }
-      //leetcode submit region begin(Prohibit modification and deletion)
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
- */
-class Solution {
-    public boolean isBalanced(TreeNode root) {
-        if(root == null) return true;
-        if(Math.abs(getTreeHeight(root.left) - getTreeHeight(root.right)) <= 1){
-            return isBalanced(root.left) && isBalanced(root.right);
-        } else return false;
+public class BalancedBinaryTree {
+    public static void main(String[] args) {
+        Solution solution = new BalancedBinaryTree().new Solution();
     }
+    //leetcode submit region begin(Prohibit modification and deletion)
 
-    int getTreeHeight(TreeNode node){
-        if(node == null) return 0;
-        else return Math.max(getTreeHeight(node.left), getTreeHeight(node.right)) + 1;
+    /**
+     * Definition for a binary tree node.
+     * public class TreeNode {
+     * int val;
+     * TreeNode left;
+     * TreeNode right;
+     * TreeNode() {}
+     * TreeNode(int val) { this.val = val; }
+     * TreeNode(int val, TreeNode left, TreeNode right) {
+     * this.val = val;
+     * this.left = left;
+     * this.right = right;
+     * }
+     * }
+     */
+    class Solution {
+        public boolean isBalanced(TreeNode root) {
+            int res = my(root);
+
+            return res != -1;
+        }
+
+        int my(TreeNode node) {
+            if (node == null) return 0;
+
+            int left = my(node.left);
+            if (left == -1) return -1;
+
+            int right = my(node.right);
+            if (right == -1) return -1;
+
+            int diff = Math.abs(left - right);
+            if (diff < 2) return Math.max(right, left) + 1;
+            else return -1;
+        }
     }
-}
 //leetcode submit region end(Prohibit modification and deletion)
 
-  }
+}
