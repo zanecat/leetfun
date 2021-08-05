@@ -58,35 +58,24 @@ public class MinimumDepthOfBinaryTree{
  * }
  */
 class Solution {
+    int res = 99999;
     public int minDepth(TreeNode root) {
         if (root == null) return 0;
-        ArrayDeque<TreeNode> q = new ArrayDeque<>();
-        q.addLast(root);
-        int depth = 1;
 
-        while (!q.isEmpty()) {
-            int size = q.size();
-            for (int i = 0; i < size; i++) {
-                TreeNode node = q.removeFirst();
-                if (node.left != null) {
-                    q.addLast(node.left);
-                    if (node.right != null) {
-                        q.addLast(node.right);
-                    }
-                } else {
-                    if (node.right != null) {
-                        q.addLast(node.right);
-                    } else {
-                        return depth;
-                    }
-                }
-            }
+        my(root, 1);
+        return res;
+    }
 
-            depth++;
+    void my(TreeNode node, int lv) {
+        if(lv > res || node == null) return;
+
+        if(node.left == null && node.right == null){
+            if (lv < res) res = lv;
+
+        } else {
+            my(node.left, lv + 1);
+            my(node.right, lv + 1);
         }
-
-
-        return depth;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

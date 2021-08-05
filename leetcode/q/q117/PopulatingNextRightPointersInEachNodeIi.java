@@ -86,25 +86,35 @@ class Node {
 
 class Solution {
     public Node connect(Node root) {
-        if(root == null){
-            return null;
-        }
+        if (root == null) return null;
 
-        Queue<Node> queue = new LinkedList<>();
+        Node curr = root;
+        Node cand = null;
 
-        queue.offer(root);
-
-        while(!queue.isEmpty()){
-            int len = queue.size();
-            while(len-- > 0){
-                Node curr = queue.poll();
-                if(len > 0){
-                    curr.next = queue.peek();
+        while (curr != null){
+            Node last = null;
+            while (curr != null){
+                if (curr.left != null){
+                    if (cand == null) cand = curr.left;
+                    if (last != null) {
+                        last.next = curr.left;
+                    }
+                    last = curr.left;
                 }
 
-                if(curr.left != null) queue.offer(curr.left);
-                if(curr.right != null) queue.offer(curr.right);
+                if (curr.right != null){
+
+                    if (cand == null) cand = curr.right;
+                    if (last != null) {
+                        last.next = curr.right;
+                    }
+                    last = curr.right;
+                }
+
+                curr = curr.next;
             }
+            curr = cand;
+            cand = null;
         }
 
         return root;

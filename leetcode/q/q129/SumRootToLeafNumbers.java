@@ -72,24 +72,22 @@ public class SumRootToLeafNumbers {
      * }
      */
     class Solution {
-        int result = 0;
+        int res = 0;
         public int sumNumbers(TreeNode root) {
-            if(root == null) return 0;
-            helper(root, 0);
-            return result;
+            my(root,0);
+
+            return res;
         }
 
-        void helper(TreeNode node, int currentSum){
-            int newSum = currentSum * 10 + node.val;
-            if(node.left == null && node.right == null) result += newSum;
-            else {
-                if(node.left != null){
-                    helper(node.left, newSum);
-                }
+        void my(TreeNode node, int sum){
+            if(node == null) return;
 
-                if (node.right != null){
-                    helper(node.right, newSum);
-                }
+            int newSum = sum * 10 + node.val;
+
+            if(node.left == null && node.right == null) res += newSum;
+            else {
+                my(node.left, newSum);
+                my(node.right, newSum);
             }
         }
     }
