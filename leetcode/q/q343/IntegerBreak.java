@@ -34,22 +34,28 @@ public class IntegerBreak {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int integerBreak(int n) {
-            int[] ans = new int [n+1];
+            if (n == 2) return 1;
+            if (n == 3) return 2;
 
-            if(n == 1) return 1;
-            if(n == 2) return 1;
-            if(n == 3) return 2;
-            if(n == 4) return 4;
-            ans[1] = 1;
-            ans[2] = 2;
-            ans[3] = 3;
-            ans[4] = 4;
+            int rest = n % 3;
+            int threes = n / 3;
 
-            for(int i = 5; i < n + 1; i ++){
-                ans[i] = ans[i-3] * 3;
+
+            if (rest == 1){
+                threes --;
+                rest = 4;
             }
 
-            return ans[n];
+            if (rest == 0){
+                rest = 1;
+            }
+
+
+            for (int i = 0; i < threes; i ++){
+                rest *= 3;
+            }
+
+            return rest;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
