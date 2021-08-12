@@ -74,20 +74,20 @@ public class TaskScheduler {
             int [] counts = new int[26];
 
             for (char c : tasks){
-                counts[c - 'A']++;
+                counts[c - 'A'] += 1;
             }
 
-            Arrays.sort(counts);
-
-            int maxCounts = 1;
-            for (int i = 24; i > 0; i --){
-                if (counts[i] == counts[25]) maxCounts ++;
-                else break;
+            int max = 0;
+            for (int i : counts){
+                if (i > max) max = i;
             }
 
-            int minTime = (counts[25] - 1) * (n + 1) + maxCounts;
+            int maxc = 0;
+            for (int i : counts){
+                if (i == max) maxc ++;
+            }
 
-            return Math.max(minTime, tasks.length);
+            return Math.max(tasks.length, ((max - 1) * (n + 1) + maxc));
 
         }
     }

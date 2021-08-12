@@ -28,6 +28,7 @@ brute force...
 package q.q118;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class PascalsTriangle{
@@ -38,31 +39,21 @@ public class PascalsTriangle{
 class Solution {
     public List<List<Integer>> generate(int numRows) {
 
-      List<List<Integer>> triangle = new ArrayList<List<Integer>>();
+      List<List<Integer>> res = new ArrayList<>();
+      res.add(List.of(1));
+      for (int i = 2; i < numRows + 1; i ++){
+        List<Integer> list = new LinkedList<>();
+        List<Integer> last = res.get(res.size() - 1);
 
-      if (numRows == 0) {
-        return triangle;
-      }
-
-      triangle.add(new ArrayList<>());
-      triangle.get(0).add(1);
-
-      for (int rowNum = 1; rowNum < numRows; rowNum++) {
-        List<Integer> row = new ArrayList<>();
-        List<Integer> prevRow = triangle.get(rowNum-1);
-
-        row.add(1);
-
-        for (int j = 1; j < rowNum; j++) {
-          row.add(prevRow.get(j-1) + prevRow.get(j));
+        list.add(1);
+        for (int j = 1; j < i - 1; j ++){
+          list.add(last.get(j - 1) + last.get(j));
         }
-
-        row.add(1);
-
-        triangle.add(row);
+        list.add(1);
+        res.add(list);
       }
 
-      return triangle;
+      return res;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
