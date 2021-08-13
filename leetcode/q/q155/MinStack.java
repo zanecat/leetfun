@@ -48,6 +48,7 @@
 
 package q.q155;
 
+import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.LinkedList;
 
@@ -58,27 +59,30 @@ class MinStack1 {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class MinStack {
-        Deque<Integer> st;
-        Deque<Integer> minSt;
+        Deque<Integer> st = new ArrayDeque<>();
+        int min = Integer.MAX_VALUE;
 
 
         /**
          * initialize your data structure here.
          */
         public MinStack() {
-            st = new LinkedList<>();
-            minSt = new LinkedList<>();
-            minSt.push(Integer.MAX_VALUE);
+
         }
 
         public void push(int val) {
+            if (val <= min ){
+                st.push(min);
+                min = val;
+            }
             st.push(val);
-            minSt.push(Math.min(val, minSt.peek()));
         }
 
-        public void pop() {
-            st.pop();
-            minSt.pop();
+        public int pop() {
+            int top = st.pop();
+
+            if (top == min) min = st.pop();
+            return top;
         }
 
         public int top() {
@@ -86,7 +90,7 @@ class MinStack1 {
         }
 
         public int getMin() {
-            return minSt.peek();
+            return min;
         }
     }
 
