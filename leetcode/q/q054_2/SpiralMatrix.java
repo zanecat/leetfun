@@ -31,6 +31,7 @@
   package q.q054_2;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class SpiralMatrix{
@@ -40,27 +41,29 @@ public class SpiralMatrix{
       //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public List<Integer> spiralOrder(int[][] matrix) {
-        List<Integer> order = new ArrayList<Integer>();
-        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
-            return order;
-        }
-        int rows = matrix.length, columns = matrix[0].length;
-        boolean[][] visited = new boolean[rows][columns];
-        int total = rows * columns;
-        int row = 0, column = 0;
-        int[][] directions = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
-        int directionIndex = 0;
-        for (int i = 0; i < total; i++) {
-            order.add(matrix[row][column]);
-            visited[row][column] = true;
-            int nextRow = row + directions[directionIndex][0], nextColumn = column + directions[directionIndex][1];
-            if (nextRow < 0 || nextRow >= rows || nextColumn < 0 || nextColumn >= columns || visited[nextRow][nextColumn]) {
-                directionIndex = (directionIndex + 1) % 4;
+        int m = matrix.length, n = matrix[0].length;
+        boolean [][] visited = new boolean[m][n];
+
+        int [][] direction = new int[][]{{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+
+        int i = 0, j = 0;
+        List<Integer> res = new LinkedList<>();
+        int di = 0;
+        while (true){
+            if (i >= m || i < 0 || j < 0 || j >= n || visited[i][j]) return res;
+            res.add(matrix[i][j]);
+            visited[i][j] = true;
+
+            int i1 = direction[di%4][0] + i;
+            int j1 = direction[di%4][1] + j;
+
+            if (i1 >= m || i1 < 0 || j1 < 0 || j1 >= n || visited[i1][j1]) {
+                di ++;
             }
-            row += directions[directionIndex][0];
-            column += directions[directionIndex][1];
+
+            i = direction[di%4][0] + i;
+            j = direction[di%4][1] + j;
         }
-        return order;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
