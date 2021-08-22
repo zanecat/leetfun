@@ -63,33 +63,26 @@ import java.util.Arrays;
 public class CoinChange {
     public static void main(String[] args) {
         Solution solution = new CoinChange().new Solution();
-        solution.coinChange(new int[]{1,2,5}, 11);
+        solution.coinChange(new int[]{2,5,10,1}, 27);
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int coinChange(int[] coins, int amount) {
-            int max = amount + 1;
             if(amount == 0) return 0;
             int [] dp = new int[amount + 1];
-            int start = max;
-            Arrays.fill(dp, max);
-            for (int i : coins) {
-                if(i <= amount){
-                    dp[i] = 1;
-                    start = Math.min(i, start);
+            Arrays.fill(dp, amount + 1);
+            for(int i = 0; i <= amount; i ++){
+                if(i % coins[0] == 0) dp[i] = i / coins[0];
+            }
+
+            for(int i = 1; i < coins.length; i++){
+                for(int j = 1; j <= amount; j ++){
+                    if(j >= coins[i]) dp[j] = Math.min(dp[j], dp[j - coins[i]] + 1);
                 }
             }
 
-            for(int i = start + 1; i < amount + 1; i ++){
-                for(int c: coins){
-                    if(i > c) {
-                        dp[i] = Math.min(dp[i], dp[i - c] + 1);
-                    }
-                }
-            }
-
-            return dp[amount] == max ? -1 : dp[amount];
+            return dp[amount] == amount + 1 ? -1 : dp[amount];
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
