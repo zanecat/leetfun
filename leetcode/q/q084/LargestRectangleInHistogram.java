@@ -35,41 +35,42 @@ public class LargestRectangleInHistogram {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
-        public int largestRectangleArea(int[] heights) {
-            int len = heights.length;
-            int [] left = new int[len];
-            int [] right = new int[len];
+        public int largestRectangleArea(int[] h) {
+            Stack<Integer> st = new Stack<>();
 
+            int [] left = new int[h.length];
+            st.push(-1);
 
-
-            Stack<Integer> stack = new Stack<>();
-
-            for (int i = 0; i < len; i ++){
-                while (!stack.isEmpty() && heights[stack.peek()] >= heights[i]){
-                    stack.pop();
+            for (int i = 0; i < h.length; i ++){
+                while (st.peek() != -1){
+                    if (h[st.peek()] >= h[i]){
+                        st.pop();
+                    } else {
+                        break;
+                    }
                 }
 
-                left[i] = stack.isEmpty() ? -1 : stack.peek();
-                stack.push(i);
+                left[i] = st.peek();
+                st.push(i);
             }
 
-            stack.clear();
-
-            for (int i = len - 1; i >= 0; i --){
-                while (!stack.isEmpty() && heights[stack.peek()] >= heights[i]){
-                    stack.pop();
+            st = new Stack<>();
+            st.push(h.length);
+            int res = 0;
+            for (int i = h.length - 1; i >= 0; i --){
+                while (st.peek() != h.length){
+                    if (h[st.peek()] >= h[i]){
+                        st.pop();
+                    } else {
+                        break;
+                    }
                 }
 
-                right[i] = stack.isEmpty() ? len : stack.peek();
-                stack.push(i);
+                res = Math.max(res, (st.peek() - left[i] - 1) * h[i]);
+                st.push(i);
             }
 
-            int result = 0;
-            for (int i = 0; i < len; i ++){
-                result = Math.max(result, heights[i] * (right[i] - left[i] - 1));
-            }
-
-            return result;
+            return res;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
