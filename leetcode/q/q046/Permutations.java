@@ -27,6 +27,8 @@
 package q.q046;
 
 import java.util.ArrayList;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Permutations {
@@ -38,30 +40,26 @@ public class Permutations {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         List<List<Integer>> res = new ArrayList<>();
-        boolean [] used = null;
-        int[] nums = null;
+        boolean[] used;
         public List<List<Integer>> permute(int[] nums) {
+            Deque<Integer> list = new LinkedList<>();
             used = new boolean[nums.length];
-            this.nums = nums;
-
-            backtrace(new ArrayList<>());
-
+            bt(nums, list);
             return res;
         }
 
-        void backtrace(List<Integer> list){
-            if (list.size() == used.length){
+        void bt(int[] nums, Deque<Integer> list){
+            if (list.size() == nums.length){
                 res.add(new ArrayList<>(list));
                 return;
             }
-
-            for (int i = 0; i < used.length; i ++){
+            for (int i = 0; i < nums.length; i ++){
                 if (!used[i]){
-                    list.add(nums[i]);
-                    used[i] = true;
-                    backtrace(list);
+                    used[i] =true;
+                    list.push(nums[i]);
+                    bt(nums, list);
+                    list.pop();
                     used[i] = false;
-                    list.remove(list.size() - 1);
                 }
             }
         }
